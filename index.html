@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Upload file</title>
+    <link rel="icon" href="./Resource/icon/favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <script src="./Resource/jquery.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h3>File Upload</h3>
+        <div class="input">
+            <label for="in-file">
+                <img src="./Resource/icon/upload.png" >
+                <p>upload your file !!!</p>
+            </label>
+            <input type="file" id="in-file" multiple>
+        </div>
+        <div class="output">
+            <div class="item">
+                <img src="./Resource/icon/file-txt.png">
+                <div class="info">
+                    <div class="name-file">file-1</div>
+                    <div class="size-file">265kb</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(() => {
+            let input = $(".container .input #in-file");
+            function addFile(format,element,target){
+                switch(format){
+                    case "txt":
+                        target.append(`
+                        <div class="item">
+                            <img src="./Resource/icon/file-txt.png">
+                            <div class="info">
+                                <div class="name-file">${element.name}</div>
+                                <div class="size-file">${Math.ceil(element.size / 1000)} kb</div>
+                            </div>
+                        </div>
+                        `);
+                        break;
+
+                    case "jpeg":
+                    case "jpg":
+                        target.append(`
+                        <div class="item">
+                            <img src="./Resource/icon/file-jpg.png">
+                            <div class="info">
+                                <div class="name-file">${element.name}</div>
+                                <div class="size-file">${element.size}</div>
+                            </div>
+                        </div>
+                        `);
+                        break;
+
+                    case "mp3":
+                        target.append(`
+                        <div class="item">
+                            <img src="./Resource/icon/file-mp3.png">
+                            <div class="info">
+                                <div class="name-file">${element.name}</div>
+                                <div class="size-file">${element.size}</div>
+                            </div>
+                        </div>
+                        `);
+                        break;
+                    
+                    
+                    case "mp4":
+                        target.append(`
+                        <div class="item">
+                            <img src="./Resource/icon/file-mp4.png">
+                            <div class="info">
+                                <div class="name-file">${element.name}</div>
+                                <div class="size-file">${element.size}</div>
+                            </div>
+                        </div>
+                        `);
+                        break;
+                }
+            }
+            input.on("input",() => {
+                console.log("hai");
+                $(".container .output").children().remove();
+
+                Object.values(input[0].files).forEach((e,i) => {
+                   addFile((e.name.split(".")[e.name.split(".").length - 1]),e,$(".container .output"))
+                })
+            })
+        
+        });
+
+        
+    </script>
+</body>
+</html>
